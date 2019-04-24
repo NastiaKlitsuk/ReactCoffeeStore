@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
-import { NavigationMenu } from '../mocks/navigation-menu';
+import { NavigationMenu } from '../../mocks/navigation-menu';
+import { RouterLink } from '../UI/RouterLink/RouterLink';
 
 const StyledList = styled.ul`
 padding: 10px;
@@ -19,11 +20,11 @@ interface VerticalMenuProps {
   navigationMenus: NavigationMenu[];
 }
 export default function VerticalMenu({ navigationMenus }: VerticalMenuProps) {
-  const verticalMenuNames = navigationMenus.map(navigationMenu => navigationMenu.name)
   return (
     <StyledList>
-      {verticalMenuNames.map(function (menuName, index) {
-        return <li key={index}>{menuName}</li>;
+      {navigationMenus.map(function (navigationMenu, index) {
+        const { navigateTo: to, name: text } = navigationMenu
+        return <li key={index}><RouterLink {...{ to, text }} /></li>;
       })}
     </StyledList>
   )

@@ -21,9 +21,9 @@ export enum NavigationMenuRoutes {
 }
 
 export enum NavigationSubMenuRoutes {
-  menu = 'order/menu',
-  favorite = 'order/favorite',
-  previous = 'order/previous'
+  menu = '/order/menu',
+  favorite = '/order/favorite',
+  previous = '/order/previous'
 }
 
 export interface NavigationMenu {
