@@ -23,35 +23,14 @@ interface HorizontalMenuProps {
   navigationMenus: NavigationMenu[];
   onHorizontalMenuSelected(menuName: string): void;
 }
-// export default function HorizontalMenu({ navigationMenus, onHorizontalMenuSelected }: HorizontalMenuProps) {
-//   return (
-//     <StyledList>
-//       {navigationMenus.map(function (navigationMenu, index) {
-//         const { navigateTo: to, name: text } = navigationMenu
-//         return <li key={index} onClick={() => onHorizontalMenuSelected(navigationMenu.name)}><RouterLink {...{ to, text }} /></li>;
-//       })}
-//     </StyledList>
-//   )
-// }
-
-export default class HorizontalMenu extends Component<HorizontalMenuProps> {
-  constructor(props: HorizontalMenuProps) {
-    super(props)
-  }
-
-  componentWillReceiveProps(nextProps: any) {
-    console.log('HorizontalMenu componentWillReceiveProps');
-  }
-
-  render() {
-    const { navigationMenus, onHorizontalMenuSelected } = this.props
-    return (
-      <StyledList>
-        {navigationMenus.map(function (navigationMenu, index) {
-          const { navigateTo: to, name: text } = navigationMenu
-          return <li key={index} onClick={() => onHorizontalMenuSelected(navigationMenu.name)}><RouterLink {...{ to, text }} /></li>;
-        })}
-      </StyledList>
-    )
-  }
+export default function HorizontalMenu({ navigationMenus, onHorizontalMenuSelected }: HorizontalMenuProps) {
+  return (
+    <StyledList>
+      {navigationMenus.map(function (navigationMenu, index) {
+        const { navigateTo: to, name: text } = navigationMenu
+        return <li key={index} onClick={() => onHorizontalMenuSelected(navigationMenu.name)}><RouterLink {...{ to, text }} /></li>;
+      })}
+    </StyledList>
+  )
 }
+

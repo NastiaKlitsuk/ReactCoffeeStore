@@ -44,10 +44,6 @@ export default class Sidebar extends Component<SidebarProps, SidebarState> {
     this.interval = 0
   }
 
-  componentWillReceiveProps(nextProps: any) {
-    console.log('Sidebar componentWillReceiveProps');
-  }
-
   @autobind
   onHorizontalMenuSelected(menuName: string) {
     const selectedMainMenu: MaybeNavigationMenu = this.props.navigationMenus

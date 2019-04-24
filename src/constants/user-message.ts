@@ -5,20 +5,20 @@ export interface UserMessage {
 
 export const GoodMorningMessage: UserMessage = {
   message: 'GOOD MORNING',
-  imagePath: './assets/sunrise.jpg'
+  imagePath: '/assets/sunrise.jpg'
 };
 
 export const GoodEveningMessage: UserMessage = {
   message: 'GOOD EVENING',
-  imagePath: './assets/sunset.jpg'
+  imagePath: '/assets/sunset.jpg'
 };
 
 export const GoodNigthMessage: UserMessage = {
   message: 'GOOD NIGTH',
-  imagePath: './assets/moon.jpg'
+  imagePath: '/assets/moon.jpg'
 };
 
 export const GoodAfternoonMessage: UserMessage = {
   message: 'GOOD AFTERNOON',
-  imagePath: './assets/sun.jpg'
+  imagePath: '/assets/sun.jpg'
 };
