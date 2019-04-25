@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { StoreMenu, EmptyMenu } from '../mocks/menu';
+import { MainMenu, EmptyMenu, SubMenus } from '../mocks/menu';
 import { MenuCategoryItem } from '../components/MenuCategoryItem/MenuCategoryItem';
 
 const StyledMenuScreen = styled.div`
@@ -13,14 +13,19 @@ const StyledMenuScreen = styled.div`
 export function MenuScreen() {
   const [menu, setMenu] = useState(EmptyMenu)
 
+  function onMenuItemSelected(name: string) {
+    const selectedSubMenuIndex = SubMenus.findIndex(subMenu => subMenu.name === name)
+    setMenu(SubMenus[selectedSubMenuIndex].menu)
+  }
+
   useEffect(() => {
-    setMenu(StoreMenu)
-  })
+    setMenu(MainMenu)
+  }, [])
 
   return (
     <StyledMenuScreen>
       {menu.map((menuCategory) =>
-        <MenuCategoryItem {... { menuCategory }} key={menuCategory.name} />
+        <MenuCategoryItem {... { menuCategory, onMenuItemSelected }} key={menuCategory.name} />
       )}
     </StyledMenuScreen>
   )

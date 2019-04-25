@@ -20,35 +20,99 @@ export const EmptyMenu: MenuCategory[] = [
   }
 ];
 
-export const StoreMenu: MenuCategory[] = [
+enum MainMenuCategories {
+  HotCoffees = 'Hot Coffees',
+  HotDrinks = 'Hot Drinks',
+  ColdCoffees = 'Cold Coffees',
+  ColdDrinks = 'Cold Drinks',
+  HotTeas = 'Hot Teas',
+  IcedTeas = 'Iced Teas',
+  HotBreakfest = 'Hot Breakfast',
+  Lunch = 'Lunch',
+  YogurtCustard = 'Yogurt & Custard',
+  Bakery = 'Bakery',
+  SnacksAndSweets = 'Snacks and Sweets',
+  WholeBean = 'Whole Bean',
+  VIAInstant = 'VIA Instant',
+  VerismoPods = 'Verismo Pods',
+  ColdBrew = 'Cold Brew'
+}
+
+export const MainMenu: MenuCategory[] = [
   {
     name: 'Drinks',
     menuItems: [
-      { name: 'Hot Coffees', image: '/assets/hot_coffees.jpg' },
-      { name: 'Hot Drinks', image: '/assets/hot_drinks.jpg' },
-      { name: 'Cold Coffees', image: '/assets/cold_coffees.jpg' },
-      { name: 'Cold Drinks', image: '/assets/cold_drinks.jpg' },
-      { name: 'Hot Teas', image: '/assets/hot_teas.jpg' },
-      { name: 'Iced Teas', image: '/assets/iced_tees.jpg' }
+      { name: MainMenuCategories.HotCoffees, image: '/assets/hot_coffees.jpg' },
+      { name: MainMenuCategories.HotDrinks, image: '/assets/hot_drinks.jpg' },
+      {
+        name: MainMenuCategories.ColdCoffees,
+        image: '/assets/cold_coffees.jpg'
+      },
+      { name: MainMenuCategories.ColdDrinks, image: '/assets/cold_drinks.jpg' },
+      { name: MainMenuCategories.HotTeas, image: '/assets/hot_teas.jpg' },
+      { name: MainMenuCategories.IcedTeas, image: '/assets/iced_tees.jpg' }
     ]
   },
   {
     name: 'Food',
     menuItems: [
-      { name: 'Hot Breakfast', image: '/assets/hot_breakfest.jpg' },
-      { name: 'Lunch', image: '/assets/lunch.jpg' },
-      { name: 'Yogurt & Custard', image: '/assets/yogurt.jpg' },
-      { name: 'Bakery', image: '/assets/bagel.jpg' },
-      { name: 'Snacks and Sweets', image: '/assets/snacks_sweets.jpg' }
+      {
+        name: MainMenuCategories.HotBreakfest,
+        image: '/assets/hot_breakfest.jpg'
+      },
+      { name: MainMenuCategories.Lunch, image: '/assets/lunch.jpg' },
+      { name: MainMenuCategories.YogurtCustard, image: '/assets/yogurt.jpg' },
+      { name: MainMenuCategories.Bakery, image: '/assets/bagel.jpg' },
+      {
+        name: MainMenuCategories.SnacksAndSweets,
+        image: '/assets/snacks_sweets.jpg'
+      }
     ]
   },
   {
     name: 'At Home Coffee',
     menuItems: [
-      { name: 'Whole Bean', image: '/assets/whole_bean.jpg' },
-      { name: 'VIA Instant', image: '/assets/via_instant.jpg' },
-      { name: 'Verismo Pods', image: '/assets/verismo_pods.jpg' },
-      { name: 'Cold Brew', image: '/assets/cold_brew.jpg' }
+      { name: MainMenuCategories.WholeBean, image: '/assets/whole_bean.jpg' },
+      { name: MainMenuCategories.VIAInstant, image: '/assets/via_instant.jpg' },
+      {
+        name: MainMenuCategories.VerismoPods,
+        image: '/assets/verismo_pods.jpg'
+      },
+      { name: MainMenuCategories.ColdBrew, image: '/assets/cold_brew.jpg' }
     ]
   }
+];
+
+export const HotCoffeesMenu: MenuCategory[] = [
+  {
+    name: 'Americanos',
+    menuItems: [
+      { name: 'Caffee Americano', image: '/assets/caffe_americano.jpg' },
+      { name: 'Blonde Caffee Americano', image: '/assets/caffe_americano_blonde.jpg' }
+    ]
+  },
+  {
+    name: 'Brewed Coffees',
+    menuItems: [
+      { name: 'Blonde Roast', image: '' },
+      { name: 'Caffe Misto', image: '' },
+      { name: 'Featured Dark Roast', image: '' },
+      { name: 'Pike Place Roast', image: '' }
+    ]
+  },
+  {
+    name: 'Cappuccinos',
+    menuItems: [
+      { name: 'Cappuccino', image: '' },
+      { name: 'Blonde Cappucino', image: '' }
+    ]
+  }
+];
+
+export interface SubMenu {
+  name: string;
+  menu: MenuCategory[];
+}
+export const SubMenus: SubMenu[] = [
+  { name: MainMenuCategories.HotCoffees, menu: HotCoffeesMenu }
 ];

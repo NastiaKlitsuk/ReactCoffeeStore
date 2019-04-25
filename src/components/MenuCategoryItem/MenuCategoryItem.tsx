@@ -5,6 +5,7 @@ import { ImageWithText } from '../UI/ImageWithText/ImageWithText';
 
 export interface MenuCategoryProps {
   menuCategory: MenuCategory;
+  onMenuItemSelected(name: string): void
 }
 
 const MenuCategoryItemContainer = styled.div`
@@ -17,7 +18,7 @@ const StyledHeader = styled.h1`
   font-size: 1.3em;
   text-align: left;
 `
-export function MenuCategoryItem({ menuCategory }: MenuCategoryProps) {
+export function MenuCategoryItem({ menuCategory, onMenuItemSelected }: MenuCategoryProps) {
   const { name, menuItems } = menuCategory
   return (
     <div>
@@ -25,7 +26,7 @@ export function MenuCategoryItem({ menuCategory }: MenuCategoryProps) {
       <MenuCategoryItemContainer>
         {menuItems.map((menuItem) => {
           const { image, name } = menuItem;
-          return <ImageWithText {...{ imageSrc: image, text: name }} key={name} />
+          return <ImageWithText {...{ imageSrc: image, text: name, onMenuItemSelected }} key={name} />
         })}
       </MenuCategoryItemContainer>
     </div>
