@@ -94,17 +94,17 @@ export const HotCoffeesMenu: MenuCategory[] = [
   {
     name: 'Brewed Coffees',
     menuItems: [
-      { name: 'Blonde Roast', image: '' },
-      { name: 'Caffe Misto', image: '' },
-      { name: 'Featured Dark Roast', image: '' },
-      { name: 'Pike Place Roast', image: '' }
+      { name: 'Blonde Roast', image: '/assets/blonde_roast.jpg' },
+      { name: 'Caffe Misto', image: '/assets/caffe_misto.jpg' },
+      { name: 'Featured Dark Roast', image: '/assets/featured_dark_roast.jpg' },
+      { name: 'Pike Place Roast', image: '/assets/pike_place_roast.jpg' }
     ]
   },
   {
     name: 'Cappuccinos',
     menuItems: [
-      { name: 'Cappuccino', image: '' },
-      { name: 'Blonde Cappucino', image: '' }
+      { name: 'Cappuccino', image: '/assets/cappuccino.jpg' },
+      { name: 'Blonde Cappucino', image: '/assets/cappuccino_blonde.jpg' }
     ]
   }
 ];

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { MainMenu, EmptyMenu, SubMenus } from '../mocks/menu';
+import { MainMenu, EmptyMenu, SubMenus, MenuCategory } from '../mocks/menu';
 import { MenuCategoryItem } from '../components/MenuCategoryItem/MenuCategoryItem';
 
 const StyledMenuScreen = styled.div`
@@ -11,11 +11,11 @@ const StyledMenuScreen = styled.div`
   overflow-y: auto;
 `
 export function MenuScreen() {
-  const [menu, setMenu] = useState(EmptyMenu)
+  const [menu, setMenu] = useState<MenuCategory[] | null>(null)
 
   function onMenuItemSelected(name: string) {
     const selectedSubMenuIndex = SubMenus.findIndex(subMenu => subMenu.name === name)
-    setMenu(SubMenus[selectedSubMenuIndex].menu)
+    if (selectedSubMenuIndex > -1) setMenu(SubMenus[selectedSubMenuIndex].menu)
   }
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export function MenuScreen() {
 
   return (
     <StyledMenuScreen>
-      {menu.map((menuCategory) =>
+      {menu && menu.map((menuCategory) =>
         <MenuCategoryItem {... { menuCategory, onMenuItemSelected }} key={menuCategory.name} />
       )}
     </StyledMenuScreen>

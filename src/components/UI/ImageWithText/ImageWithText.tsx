@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export interface ImageWithTextProps {
   imageSrc: string;
   text: string;
-  onMenuItemSelected(name: string): void
+  onMenuItemSelected?(name: string): void
 }
 
 const StyledImageWithText = styled.div`
@@ -21,7 +21,7 @@ const StyledImageWithText = styled.div`
 `
 export function ImageWithText({ imageSrc, text, onMenuItemSelected }: ImageWithTextProps) {
   return (
-    <StyledImageWithText onClick={() => onMenuItemSelected(text)}>
+    <StyledImageWithText onClick={() => onMenuItemSelected && onMenuItemSelected(text)}>
       <img src={imageSrc} height='50px' width='60px' />
       <span>{text}</span>
     </StyledImageWithText>
