@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { MenuCategory } from '../../mocks/menu';
 import { ImageWithText } from '../UI/ImageWithText/ImageWithText';
+import { MenuItemClick } from '../../interfaces/menu.interfaces';
 
-export interface MenuCategoryProps {
+export interface MenuCategoryProps extends MenuItemClick {
   menuCategory: MenuCategory;
-  onMenuItemSelected(name: string): void
+  match: any
 }
 
 const MenuCategoryItemContainer = styled.div`
@@ -18,7 +19,7 @@ const StyledHeader = styled.h1`
   font-size: 1.3em;
   text-align: left;
 `
-export function MenuCategoryItem({ menuCategory, onMenuItemSelected }: MenuCategoryProps) {
+export function MenuCategoryItem({ menuCategory, onMenuItemClick, match }: MenuCategoryProps) {
   const { name, menuItems } = menuCategory
   return (
     <div>
@@ -26,7 +27,8 @@ export function MenuCategoryItem({ menuCategory, onMenuItemSelected }: MenuCateg
       <MenuCategoryItemContainer>
         {menuItems.map((menuItem) => {
           const { image, name } = menuItem;
-          return <ImageWithText {...{ imageSrc: image, text: name, onMenuItemSelected }} key={name} />
+          const navigateTo = `${match.url}/${name}`
+          return <ImageWithText {...{ imageSrc: image, text: menuItem.name, onItemClick: onMenuItemClick, navigateTo }} key={name} />
         })}
       </MenuCategoryItemContainer>
     </div>

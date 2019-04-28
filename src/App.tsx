@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <div className="App">
         <Sidebar {... { navigationMenus }} />
-        <Route path='/order/menu' component={MenuScreen} />
+        <Route exact path="/order/menu/:categoryName?" component={MenuScreen} />
       </div>
     );
   }

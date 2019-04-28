@@ -14,7 +14,7 @@ const StyledRouterLink = styled(Link)`
 
 interface RouterLinkProps {
   to: string
-  text: string
+  text?: string
 }
 
 export function RouterLink({ to, text }: RouterLinkProps) {

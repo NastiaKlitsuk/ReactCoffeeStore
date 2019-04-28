@@ -13,13 +13,6 @@ export interface MenuCategory {
   menuItems: MenuItem[];
 }
 
-export const EmptyMenu: MenuCategory[] = [
-  {
-    name: '',
-    menuItems: [EmptyMenuItem]
-  }
-];
-
 enum MainMenuCategories {
   HotCoffees = 'Hot Coffees',
   HotDrinks = 'Hot Drinks',

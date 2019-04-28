@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
+import { RouterLink } from '../RouterLink/RouterLink';
 
 export interface ImageWithTextProps {
   imageSrc: string;
   text: string;
-  onMenuItemSelected?(name: string): void
+  onItemClick?(name: string): void
+  navigateTo?: string
 }
 
 const StyledImageWithText = styled.div`
@@ -19,11 +21,11 @@ const StyledImageWithText = styled.div`
     margin: 5px;
   }
 `
-export function ImageWithText({ imageSrc, text, onMenuItemSelected }: ImageWithTextProps) {
+export function ImageWithText({ imageSrc, text, onItemClick, navigateTo }: ImageWithTextProps) {
   return (
-    <StyledImageWithText onClick={() => onMenuItemSelected && onMenuItemSelected(text)}>
+    <StyledImageWithText onClick={() => onItemClick && onItemClick(text)}>
       <img src={imageSrc} height='50px' width='60px' />
-      <span>{text}</span>
+      {navigateTo && <RouterLink {...{ to: navigateTo, text }} />}
     </StyledImageWithText>
   )
 }
