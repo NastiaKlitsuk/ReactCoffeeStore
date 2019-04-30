@@ -5,9 +5,11 @@ import { RouterLink } from '../RouterLink/RouterLink';
 export interface ImageWithTextProps {
   imageSrc: string;
   text: string;
-  onItemClick?(name: string): void
-  navigateTo?: string
+  onItemClick(name: string): void
+  navigateTo: MaybeString
 }
+
+let a: MaybeString;
 
 const StyledImageWithText = styled.div`
   display: flex;
@@ -22,8 +24,9 @@ const StyledImageWithText = styled.div`
   }
 `
 export function ImageWithText({ imageSrc, text, onItemClick, navigateTo }: ImageWithTextProps) {
+  const onClick = () => onItemClick(text)
   return (
-    <StyledImageWithText onClick={() => onItemClick && onItemClick(text)}>
+    <StyledImageWithText onClick={onClick}>
       <img src={imageSrc} height='50px' width='60px' />
       {navigateTo && <RouterLink {...{ to: navigateTo, text }} />}
     </StyledImageWithText>

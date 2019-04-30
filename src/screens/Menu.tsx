@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { MainMenu, SubMenus, MenuCategory } from '../mocks/menu';
+import { MenuCategory } from '../interfaces/menu.interfaces';
 import { MenuCategoryItem } from '../components/MenuCategoryItem/MenuCategoryItem';
+import { MenuState, getMenu } from '../store/menu/menu.reducer';
+import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
+import fetchMenuAction from '../store/menu/menu.middleware';
+import * as menuActions from '../store/menu/menu.actions'
+import { MainMenuCategories } from '../enums/menu.enum';
 
 const StyledMenuScreen = styled.div`
   display: flex;
@@ -10,25 +16,34 @@ const StyledMenuScreen = styled.div`
   height: 96vh;
   overflow-y: auto;
 `
-export function MenuScreen(props: any) {
-  const [menu, setMenu] = useState<MenuCategory[] | null>(null)
+const mapStateToProps = (state: MenuState) => ({ categorizedMenu: getMenu(state) });
+const mapDispatchToProps = (dispatch: Dispatch<menuActions.MenuActions>) => bindActionCreators({
+  fetchMenu: fetchMenuAction,
+}, dispatch)
 
+interface MenuScreenProps {
+  match: any
+  categorizedMenu: MenuCategory[]
+  fetchMenu: Function
+}
+
+function ConnectedMenuScreen({ match, categorizedMenu, fetchMenu }: MenuScreenProps) {
   function onMenuItemClick(name: string) {
-    const selectedSubMenuIndex = SubMenus.findIndex(subMenu => subMenu.name === name)
-    if (selectedSubMenuIndex > -1) setMenu(SubMenus[selectedSubMenuIndex].menu)
+    fetchMenu(name)
   }
 
   useEffect(() => {
-    setMenu(MainMenu)
+    fetchMenu(MainMenuCategories.MainMenu)
   }, [])
-
-  console.log(props)
 
   return (
     <StyledMenuScreen>
-      {menu && menu.map((menuCategory) =>
-        <MenuCategoryItem {... { menuCategory, onMenuItemClick, match: props.match }} key={menuCategory.name} />
+      {categorizedMenu.map((menuCategory) =>
+        <MenuCategoryItem {... { menuCategory, onMenuItemClick, match }} key={menuCategory.name} />
       )}
     </StyledMenuScreen>
   )
 }
+
+const MenuScreen = connect(mapStateToProps, mapDispatchToProps)(ConnectedMenuScreen)
+export default MenuScreen

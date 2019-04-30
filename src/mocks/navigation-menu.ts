@@ -1,30 +1,10 @@
 import { UserMessage } from '../constants/user-message';
-
-export enum NAVIGATION_MENU {
-  Order = 'ORDER',
-  Cards = 'CARDS',
-  Gift = 'GIFT',
-  Stores = 'STORES'
-}
-
-export enum NAVIGATION_SUB_MENU {
-  Menu = 'Menu',
-  Favorite = 'Favorite',
-  Previous = 'Previous'
-}
-
-export enum NavigationMenuRoutes {
-  order = 'order',
-  cards = 'cards',
-  stores = 'stores',
-  gift = 'gift'
-}
-
-export enum NavigationSubMenuRoutes {
-  menu = '/order/menu',
-  favorite = '/order/favorite',
-  previous = '/order/previous'
-}
+import {
+  NAVIGATION_MENU_TITLES,
+  NAVIGATION_ORDER_MENU_TITLES,
+  NavigationSubMenuRoutes,
+  NavigationMenuRoutes
+} from '../enums/navigation-menu.enum';
 
 export interface NavigationMenu {
   name: string;
@@ -33,24 +13,24 @@ export interface NavigationMenu {
   navigateTo: string;
 }
 
-export type MaybeNavigationMenu = NavigationMenu | null
+export type MaybeNavigationMenu = NavigationMenu | null;
 
 export const navigationMenus: NavigationMenu[] = [
   {
-    name: NAVIGATION_MENU.Order,
+    name: NAVIGATION_MENU_TITLES.Order,
     subMenu: [
       {
-        name: NAVIGATION_SUB_MENU.Menu,
+        name: NAVIGATION_ORDER_MENU_TITLES.Menu,
         subMenu: [],
         navigateTo: NavigationSubMenuRoutes.menu
       },
       {
-        name: NAVIGATION_SUB_MENU.Favorite,
+        name: NAVIGATION_ORDER_MENU_TITLES.Favorite,
         subMenu: [],
         navigateTo: NavigationSubMenuRoutes.favorite
       },
       {
-        name: NAVIGATION_SUB_MENU.Previous,
+        name: NAVIGATION_ORDER_MENU_TITLES.Previous,
         subMenu: [],
         navigateTo: NavigationSubMenuRoutes.previous
       }
@@ -58,7 +38,7 @@ export const navigationMenus: NavigationMenu[] = [
     navigateTo: NavigationMenuRoutes.order
   },
   {
-    name: NAVIGATION_MENU.Cards,
+    name: NAVIGATION_MENU_TITLES.Cards,
     subMenu: [],
     userMessage: {
       message: 'Coffee store cards'
@@ -66,7 +46,7 @@ export const navigationMenus: NavigationMenu[] = [
     navigateTo: NavigationMenuRoutes.cards
   },
   {
-    name: NAVIGATION_MENU.Gift,
+    name: NAVIGATION_MENU_TITLES.Gift,
     subMenu: [],
     userMessage: {
       message: 'Gift cards'
@@ -74,7 +54,7 @@ export const navigationMenus: NavigationMenu[] = [
     navigateTo: NavigationMenuRoutes.gift
   },
   {
-    name: NAVIGATION_MENU.Stores,
+    name: NAVIGATION_MENU_TITLES.Stores,
     subMenu: [],
     navigateTo: NavigationMenuRoutes.stores
   }

@@ -1,12 +1,12 @@
 import React from 'react';
+import { match } from 'react-router';
 import styled from 'styled-components';
-import { MenuCategory } from '../../mocks/menu';
 import { ImageWithText } from '../UI/ImageWithText/ImageWithText';
-import { MenuItemClick } from '../../interfaces/menu.interfaces';
+import { MenuItemClick, MenuCategory } from '../../interfaces/menu.interfaces';
 
 export interface MenuCategoryProps extends MenuItemClick {
   menuCategory: MenuCategory;
-  match: any
+  match: match | null;
 }
 
 const MenuCategoryItemContainer = styled.div`
@@ -27,7 +27,7 @@ export function MenuCategoryItem({ menuCategory, onMenuItemClick, match }: MenuC
       <MenuCategoryItemContainer>
         {menuItems.map((menuItem) => {
           const { image, name } = menuItem;
-          const navigateTo = `${match.url}/${name}`
+          const navigateTo = match && `${match.url}/${name}`
           return <ImageWithText {...{ imageSrc: image, text: menuItem.name, onItemClick: onMenuItemClick, navigateTo }} key={name} />
         })}
       </MenuCategoryItemContainer>

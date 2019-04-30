@@ -1,35 +1,5 @@
-export interface MenuItem {
-  name: string;
-  image: string;
-}
-
-export const EmptyMenuItem = {
-  name: '',
-  image: ''
-};
-
-export interface MenuCategory {
-  name: string;
-  menuItems: MenuItem[];
-}
-
-enum MainMenuCategories {
-  HotCoffees = 'Hot Coffees',
-  HotDrinks = 'Hot Drinks',
-  ColdCoffees = 'Cold Coffees',
-  ColdDrinks = 'Cold Drinks',
-  HotTeas = 'Hot Teas',
-  IcedTeas = 'Iced Teas',
-  HotBreakfest = 'Hot Breakfast',
-  Lunch = 'Lunch',
-  YogurtCustard = 'Yogurt & Custard',
-  Bakery = 'Bakery',
-  SnacksAndSweets = 'Snacks and Sweets',
-  WholeBean = 'Whole Bean',
-  VIAInstant = 'VIA Instant',
-  VerismoPods = 'Verismo Pods',
-  ColdBrew = 'Cold Brew'
-}
+import { MenuCategory, Menu } from '../interfaces/menu.interfaces';
+import { MainMenuCategories } from '../enums/menu.enum';
 
 export const MainMenu: MenuCategory[] = [
   {
@@ -81,7 +51,10 @@ export const HotCoffeesMenu: MenuCategory[] = [
     name: 'Americanos',
     menuItems: [
       { name: 'Caffee Americano', image: '/assets/caffe_americano.jpg' },
-      { name: 'Blonde Caffee Americano', image: '/assets/caffe_americano_blonde.jpg' }
+      {
+        name: 'Blonde Caffee Americano',
+        image: '/assets/caffe_americano_blonde.jpg'
+      }
     ]
   },
   {
@@ -102,10 +75,7 @@ export const HotCoffeesMenu: MenuCategory[] = [
   }
 ];
 
-export interface SubMenu {
-  name: string;
-  menu: MenuCategory[];
-}
-export const SubMenus: SubMenu[] = [
+export const Menus: Menu[] = [
+  { name: MainMenuCategories.MainMenu, menu: MainMenu },
   { name: MainMenuCategories.HotCoffees, menu: HotCoffeesMenu }
 ];
