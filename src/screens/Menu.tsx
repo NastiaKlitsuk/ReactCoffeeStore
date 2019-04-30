@@ -5,7 +5,7 @@ import { MenuCategoryItem } from '../components/MenuCategoryItem/MenuCategoryIte
 import { MenuState, getMenu } from '../store/menu/menu.reducer';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import fetchMenuAction from '../store/menu/menu.middleware';
+import fetchMenuAction from '../store/menu/menu.fetcher';
 import * as menuActions from '../store/menu/menu.actions'
 import { MainMenuCategories } from '../enums/menu.enum';
 
