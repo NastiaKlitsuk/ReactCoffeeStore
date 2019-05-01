@@ -1,12 +1,12 @@
 import React from 'react';
 import { match } from 'react-router';
 import styled from 'styled-components';
-import { ImageWithText } from '../UI/ImageWithText/ImageWithText';
-import { MenuItemClick, MenuCategory } from '../../interfaces/menu.interfaces';
+import { NavigatbleImageWithTitle } from '../UI/NavigatbleImageWithTitle/NavigatbleImageWithTitle';
+import { CategoryMenuItemClick, MenuCategory, OnOrderMenuItemClick } from '../../interfaces/menu.interface';
 
-export interface MenuCategoryProps extends MenuItemClick {
+export interface MenuCategoryProps extends CategoryMenuItemClick, OnOrderMenuItemClick {
   menuCategory: MenuCategory;
-  match: match | null;
+  match: match;
 }
 
 const MenuCategoryItemContainer = styled.div`
@@ -19,7 +19,7 @@ const StyledHeader = styled.h1`
   font-size: 1.3em;
   text-align: left;
 `
-export function MenuCategoryItem({ menuCategory, onMenuItemClick, match }: MenuCategoryProps) {
+export function MenuCategoryItem({ menuCategory, onCategoryMenuItemClick, match, onOrderMenuItemClick }: MenuCategoryProps) {
   const { name, menuItems } = menuCategory
   return (
     <div>
@@ -27,8 +27,9 @@ export function MenuCategoryItem({ menuCategory, onMenuItemClick, match }: MenuC
       <MenuCategoryItemContainer>
         {menuItems.map((menuItem) => {
           const { image, name } = menuItem;
-          const navigateTo = match && `${match.url}/${name}`
-          return <ImageWithText {...{ imageSrc: image, text: menuItem.name, onItemClick: onMenuItemClick, navigateTo }} key={name} />
+          const navigateTo = `${match.url}/${name}`
+          const onItemClick = menuItem.isOrderItem ? onOrderMenuItemClick : onCategoryMenuItemClick
+          return <NavigatbleImageWithTitle {...{ imageSrc: image, title: menuItem.name, onItemClick, navigateTo }} key={name} />
         })}
       </MenuCategoryItemContainer>
     </div>

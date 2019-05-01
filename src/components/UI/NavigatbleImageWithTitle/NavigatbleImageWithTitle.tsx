@@ -1,15 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import { RouterLink } from '../RouterLink/RouterLink';
+import { ImageWithTitle } from '../../../interfaces/image-with-title.interface';
 
-export interface ImageWithTextProps {
-  imageSrc: string;
-  text: string;
-  onItemClick(name: string): void
-  navigateTo: MaybeString
+export interface ImageWithTitleProps extends ImageWithTitle {
+  onItemClick: Function
+  navigateTo: string
 }
-
-let a: MaybeString;
 
 const StyledImageWithText = styled.div`
   display: flex;
@@ -23,12 +20,12 @@ const StyledImageWithText = styled.div`
     margin: 5px;
   }
 `
-export function ImageWithText({ imageSrc, text, onItemClick, navigateTo }: ImageWithTextProps) {
-  const onClick = () => onItemClick(text)
+export function NavigatbleImageWithTitle({ imageSrc, title, onItemClick, navigateTo }: ImageWithTitleProps) {
+  const onClick = () => onItemClick && onItemClick({ title, imageSrc })
   return (
     <StyledImageWithText onClick={onClick}>
       <img src={imageSrc} height='50px' width='60px' />
-      {navigateTo && <RouterLink {...{ to: navigateTo, text }} />}
+      <RouterLink {...{ to: navigateTo, text: title }} />
     </StyledImageWithText>
   )
 }

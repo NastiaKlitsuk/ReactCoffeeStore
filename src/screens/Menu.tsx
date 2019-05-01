@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { MenuCategory } from '../interfaces/menu.interfaces';
+import { MenuCategory } from '../interfaces/menu.interface';
 import { MenuCategoryItem } from '../components/MenuCategoryItem/MenuCategoryItem';
 import { MenuState, getMenu } from '../store/menu/menu.reducer';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import fetchMenuAction from '../store/menu/menu.fetcher';
 import * as menuActions from '../store/menu/menu.actions'
 import { MainMenuCategories } from '../enums/menu.enum';
+import { fetchMenu, setOrderItemMenu } from '../store/menu/menu-actions-creators';
+import { ImageWithTitle } from '../interfaces/image-with-title.interface';
 
 const StyledMenuScreen = styled.div`
   display: flex;
@@ -18,28 +19,34 @@ const StyledMenuScreen = styled.div`
 `
 const mapStateToProps = (state: MenuState) => ({ categorizedMenu: getMenu(state) });
 const mapDispatchToProps = (dispatch: Dispatch<menuActions.MenuActions>) => bindActionCreators({
-  fetchMenu: fetchMenuAction,
+  getMenu: fetchMenu,
+  orderItemMenuSelected: setOrderItemMenu,
 }, dispatch)
 
 interface MenuScreenProps {
   match: any
   categorizedMenu: MenuCategory[]
-  fetchMenu: Function
+  getMenu: Function
+  orderItemMenuSelected: Function
 }
 
-function ConnectedMenuScreen({ match, categorizedMenu, fetchMenu }: MenuScreenProps) {
-  function onMenuItemClick(name: string) {
-    fetchMenu(name)
+function ConnectedMenuScreen({ match, categorizedMenu, getMenu, orderItemMenuSelected }: MenuScreenProps) {
+  function onCategoryMenuItemClick({ title }: ImageWithTitle) {
+    getMenu(title)
+  }
+
+  function onOrderMenuItemClick({ title, imageSrc }: ImageWithTitle) {
+    orderItemMenuSelected({ name: title, image: imageSrc, isOrderItem: true })
   }
 
   useEffect(() => {
-    fetchMenu(MainMenuCategories.MainMenu)
+    getMenu(MainMenuCategories.MainMenu)
   }, [])
 
   return (
     <StyledMenuScreen>
       {categorizedMenu.map((menuCategory) =>
-        <MenuCategoryItem {... { menuCategory, onMenuItemClick, match }} key={menuCategory.name} />
+        <MenuCategoryItem {... { menuCategory, onCategoryMenuItemClick, match, onOrderMenuItemClick }} key={menuCategory.name} />
       )}
     </StyledMenuScreen>
   )
