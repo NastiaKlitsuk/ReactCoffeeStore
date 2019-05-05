@@ -1,13 +1,27 @@
-import { MenuItemInformation } from '../interfaces/menu.interface';
+import { MenuItemOrderInformation } from '../interfaces/menu.interface';
 
-export const MenuItemsInformation: MenuItemInformation[] = [
+export const MenuItemsInformation: MenuItemOrderInformation[] = [
   {
-    menuItemName: 'Hot Chocolate',
-    nutritionInfo: [
+    menuItemName: 'Caffee Americano',
+    servingSize: '16 fl oz',
+    nutritionItems: [
       {
         name: 'Calories',
-        amount: '400',
-        dailyValuePercentage: 'Calories from Fat150'
+        amount: '400'
+      },
+      {
+        name: 'Total Fat',
+        amount: '16',
+        subNutritionItems: [
+          {
+            name: 'Saturated Fat',
+            amount: '10'
+          },
+          {
+            name: 'Trans Fat',
+            amount: '6'
+          }
+        ]
       }
     ],
     ingredients:

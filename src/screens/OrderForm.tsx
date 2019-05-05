@@ -1,19 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import styled from 'styled-components'
-import { MenuItemInformation } from "../interfaces/menu.interface";
-import { MenuState, getOrderMenuItemSelected } from '../store/menu/menu.reducer';
+import { Dispatch, bindActionCreators } from 'redux';
+import * as menuActions from '../store/menu/menu.actions'
+import { BoldDiv } from '../styles/nutritionInfo.style';
+import NutritionTable from '../components/NutritionTable/NutritionTable';
+import { MenuItemOrderInformation, MenuItem } from "../interfaces/menu.interface";
+import { fetchMenuItemOrderInfo } from '../store/menu/menu-actions-creators';
 import { TextWithMaybeTitle } from '../components/UI/TextWithMaybeTitle/TextWithMaybeTitle';
+import { MenuState, getOrderMenuItemSelected, getOrderMenuItemSelectedInfo } from '../store/menu/menu.reducer';
 
-const mapStateToProps = (state: MenuState) => (
-  { imgSrc: getOrderMenuItemSelected(state).image }
-)
-
-interface OrderFormProps {
-  menuItemInformation: MenuItemInformation;
-  imgSrc: string;
-}
-
+// TODO: needs to be fixed to be a form
 const StyledOrderForm = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 30vw);
@@ -27,8 +24,22 @@ const StyledImage = styled.img`
 const StyledInformationColumn = styled.div`
   text-align: left;
 `
-function ConnectedOrderForm({ menuItemInformation, imgSrc }: OrderFormProps) {
-  const nutritionInformationInfo = {
+const ServingSize = styled(BoldDiv)`
+  font-weight: 100;
+  border-bottom: groove 4px grey;
+`
+interface OrderFormProps {
+  menuItem: MenuItem;
+  getMenuItemOrderInfo: Function
+  menuItemOrderInformation: MenuItemOrderInformation;
+}
+
+function ConnectedOrderForm({ menuItemOrderInformation, menuItem: { image, name }, getMenuItemOrderInfo }: OrderFormProps) {
+  useEffect(() => {
+    getMenuItemOrderInfo(name)
+  }, [])
+
+  const nutritionInformationComment = {
     title: "Nutrition Information",
     text: "Nutrition information is calculated based on our standard recipes. Only changing drink size will update this information. Other customizations will not."
   }
@@ -37,14 +48,28 @@ function ConnectedOrderForm({ menuItemInformation, imgSrc }: OrderFormProps) {
   }
   return (
     <StyledOrderForm>
-      <StyledImage src={imgSrc} width="300px" height="300px" />
+      <StyledImage src={image} width="300px" height="300px" />
       <StyledInformationColumn>
-        <TextWithMaybeTitle {...{ ...nutritionInformationInfo }} />
+        <TextWithMaybeTitle {...{ ...nutritionInformationComment }} />
+        {menuItemOrderInformation &&
+          (<><ServingSize>Serving size {menuItemOrderInformation.servingSize}</ServingSize>
+            <NutritionTable {...{ nutritionItems: menuItemOrderInformation.nutritionItems }} /></>)}
         <TextWithMaybeTitle {...{ ...warning }} />
       </StyledInformationColumn>
     </StyledOrderForm>
   )
 }
 
-const OrderForm = connect(mapStateToProps)(ConnectedOrderForm)
+const mapStateToProps = (state: MenuState) => (
+  {
+    menuItem: getOrderMenuItemSelected(state),
+    menuItemOrderInformation: getOrderMenuItemSelectedInfo(state)
+  }
+)
+
+const mapDispatchToProps = (dispatch: Dispatch<menuActions.MenuActions>) => bindActionCreators({
+  getMenuItemOrderInfo: fetchMenuItemOrderInfo,
+}, dispatch)
+
+const OrderForm = connect(mapStateToProps, mapDispatchToProps)(ConnectedOrderForm)
 export default OrderForm

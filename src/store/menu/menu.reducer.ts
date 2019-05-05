@@ -5,14 +5,18 @@ export interface MenuState {
   menu: MenuCategory[];
   loading: boolean;
   error: MaybeString;
+  categoryMenuSelected: MaybeString;
   orderMenuItemSelected: MaybeMenuItem;
+  orderMenuItemSelectedInfo: MaybeMenuItemInformation;
 }
 
 export const initialMenuState: MenuState = {
   menu: [],
   loading: false,
   error: null,
-  orderMenuItemSelected: null
+  categoryMenuSelected: null,
+  orderMenuItemSelected: null,
+  orderMenuItemSelectedInfo: null
 };
 
 export function menuReducer(
@@ -21,8 +25,10 @@ export function menuReducer(
 ) {
   switch (action.type) {
     case menuActions.LOAD_MENU:
+      const categoryMenuSelected = (action as menuActions.ILoadMenu).categoryMenuSelected
       return {
         ...state,
+        categoryMenuSelected,
         loading: true
       };
     case menuActions.LOAD_MENU_SUCCESS:
@@ -39,6 +45,19 @@ export function menuReducer(
         ...state,
         orderMenuItemSelected
       };
+    case menuActions.LOAD_ORDER_MENU_ITEM_SELECTED_INFO:
+      return {
+        ...state,
+        loading: true
+      };
+    case menuActions.LOAD_ORDER_MENU_ITEM_SELECTED_INFO_SUCCESS:
+      const orderMenuItemSelectedInfo = (action as menuActions.ILoadOrderMenuItemSelectedInfoSuccess)
+        .menuItemInformation;
+      return {
+        ...state,
+        loading: false,
+        orderMenuItemSelectedInfo
+      };
   }
   return state;
 }
@@ -46,4 +65,7 @@ export function menuReducer(
 export const getMenu = (state: MenuState) => state.menu;
 export const getMenuLoading = (state: MenuState) => state.loading;
 export const getMenuError = (state: MenuState) => state.error;
-export const getOrderMenuItemSelected = (state: MenuState) => state.orderMenuItemSelected
+export const getOrderMenuItemSelected = (state: MenuState) =>
+  state.orderMenuItemSelected;
+export const getOrderMenuItemSelectedInfo = (state: MenuState) =>
+  state.orderMenuItemSelectedInfo;

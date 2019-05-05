@@ -27,10 +27,11 @@ export interface Menu {
 export interface NutritionItem {
   name: string;
   amount: string;
-  dailyValuePercentage: string;
+  subNutritionItems?: NutritionItem[]
 }
-export interface MenuItemInformation {
+export interface MenuItemOrderInformation {
   menuItemName: string;
-  nutritionInfo: NutritionItem[];
+  servingSize: string;
+  nutritionItems: NutritionItem[];
   ingredients: string;
 }

@@ -9,6 +9,7 @@ import * as menuActions from '../store/menu/menu.actions'
 import { MainMenuCategories } from '../enums/menu.enum';
 import { fetchMenu, setOrderItemMenu } from '../store/menu/menu-actions-creators';
 import { ImageWithTitle } from '../interfaces/image-with-title.interface';
+import { withRouter } from 'react-router-dom';
 
 const StyledMenuScreen = styled.div`
   display: flex;
@@ -17,12 +18,6 @@ const StyledMenuScreen = styled.div`
   height: 96vh;
   overflow-y: auto;
 `
-const mapStateToProps = (state: MenuState) => ({ categorizedMenu: getMenu(state) });
-const mapDispatchToProps = (dispatch: Dispatch<menuActions.MenuActions>) => bindActionCreators({
-  getMenu: fetchMenu,
-  orderItemMenuSelected: setOrderItemMenu,
-}, dispatch)
-
 interface MenuScreenProps {
   match: any
   categorizedMenu: MenuCategory[]
@@ -41,6 +36,7 @@ function ConnectedMenuScreen({ match, categorizedMenu, getMenu, orderItemMenuSel
 
   useEffect(() => {
     getMenu(MainMenuCategories.MainMenu)
+    console.log('useEffect ConnectedMenuScreen')
   }, [])
 
   return (
@@ -52,5 +48,11 @@ function ConnectedMenuScreen({ match, categorizedMenu, getMenu, orderItemMenuSel
   )
 }
 
-const MenuScreen = connect(mapStateToProps, mapDispatchToProps)(ConnectedMenuScreen)
+const mapStateToProps = (state: MenuState) => ({ categorizedMenu: getMenu(state) });
+const mapDispatchToProps = (dispatch: Dispatch<menuActions.MenuActions>) => bindActionCreators({
+  getMenu: fetchMenu,
+  orderItemMenuSelected: setOrderItemMenu,
+}, dispatch)
+
+const MenuScreen = withRouter(connect(mapStateToProps, mapDispatchToProps)(ConnectedMenuScreen) as any)
 export default MenuScreen
